@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">星空产品</string>
+    <string name="name">Name : </string>
+    <string name="type">Type : </string>
+    <string name="version">Version : </string>
 </resources>

@@ -34,7 +34,7 @@ public class RealmOperator {
         return item;
     }
 
-    public static void clearAllItems(){
+    static void clearAllItems(){
         final RealmResults<Items> items = realm.where(Items.class).findAll();
         realm.executeTransaction(new Realm.Transaction(){
 

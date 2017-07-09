@@ -39,7 +39,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         holder.name.setText(item.getName());
         holder.type.setText(item.getType());
         holder.version.setText(item.getMaster_release().getVersion());
-        Glide.with(mContext).load(item.getIcon_url()).into(holder.icon);
+        Glide.with(mContext)
+                .load(item.getIcon_url())
+                .placeholder(R.drawable.ic_action_photo)
+                .error(R.drawable.ic_action_error)
+                .into(holder.icon);
     }
 
     public ItemsAdapter(List<Items>list,Context context){
