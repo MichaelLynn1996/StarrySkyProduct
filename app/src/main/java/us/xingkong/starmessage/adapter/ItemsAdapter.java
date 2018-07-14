@@ -1,6 +1,7 @@
-package us.xingkong.starmessage;
+package us.xingkong.starmessage.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
@@ -13,6 +14,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import us.xingkong.starmessage.R;
 import us.xingkong.starmessage.been.Items;
 
 /**
@@ -24,8 +28,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     private Context mContext;
     private List<Items> itemsList;
 
+    @NonNull
     @Override
-    public ItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(mContext==null){
             mContext = parent.getContext();
         }
@@ -34,15 +39,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Items item = itemsList.get(position);
         holder.name.setText(item.getName());
         holder.type.setText(item.getType());
         holder.version.setText(item.getMaster_release().getVersion());
         Glide.with(mContext)
                 .load(item.getIcon_url())
-                .placeholder(R.drawable.ic_action_photo)
-                .error(R.drawable.ic_action_error)
+//                .placeholder(R.drawable.ic_action_photo)
+//                .error(R.drawable.ic_action_error)
                 .into(holder.icon);
     }
 
@@ -56,20 +61,25 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         return itemsList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
+        @BindView(R.id.head_portrait)
         AppCompatImageView icon;
+        @BindView(R.id.name)
         AppCompatTextView name;
+        @BindView(R.id.type)
         AppCompatTextView type;
+        @BindView(R.id.version)
         AppCompatTextView version;
 
-        public ViewHolder(View view){
+        ViewHolder(View view){
             super(view);
+            ButterKnife.bind(this, view);
             cardView = (CardView)view;
-            icon = view.findViewById(R.id.head_portrait);
-            name = view.findViewById(R.id.name);
-            type = view.findViewById(R.id.type);
-            version = view.findViewById(R.id.version);
         }
+    }
+
+    public void setItemsList(List<Items> itemsList) {
+        this.itemsList = itemsList;
     }
 }
